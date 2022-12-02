@@ -23,7 +23,10 @@ function Dashboard() {
                 body: JSON.stringify(input),
             };
 
-            await fetch('http://localhost:5500/api/news', options);
+            await fetch(
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/news`,
+                options
+            );
 
             setPostNews('');
             getNewsfeed();
@@ -34,9 +37,12 @@ function Dashboard() {
 
     async function getNewsfeed() {
         try {
-            const res = await fetch('http://localhost:5500/api/news', {
-                credentials: 'include',
-            });
+            const res = await fetch(
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/news`,
+                {
+                    credentials: 'include',
+                }
+            );
 
             if (res.status === 401) {
                 console.log('res status is 401', res.status);
