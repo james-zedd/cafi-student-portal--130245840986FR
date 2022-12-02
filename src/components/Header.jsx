@@ -10,11 +10,19 @@ function Header() {
 
     async function getHeader() {
         try {
-            const res = await fetch('http://localhost:5500/api/auth/header', {
-                credentials: 'include',
-            });
+            const res = await fetch(
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/auth/header`,
+                {
+                    credentials: 'include',
+                }
+            );
 
-            console.log('header res', res);
+            console.log(
+                'header res',
+                res,
+                process.env.NODE_ENV,
+                process.env.REACT_APP_FETCH_URL
+            );
 
             const json = await res.json();
 
@@ -29,9 +37,12 @@ function Header() {
 
     async function handleLogout() {
         try {
-            await fetch('http://localhost:5500/api/auth/logout', {
-                credentials: 'include',
-            });
+            await fetch(
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/auth/logout`,
+                {
+                    credentials: 'include',
+                }
+            );
 
             return navigate('/');
         } catch (error) {

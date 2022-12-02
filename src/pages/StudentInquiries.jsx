@@ -12,7 +12,7 @@ function StudentInquiries() {
     async function getQuestions() {
         try {
             const res = await fetch(
-                'http://localhost:5500/api/hanshiAsk/allQuestions',
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiAsk/allQuestions`,
                 {
                     credentials: 'include',
                 }

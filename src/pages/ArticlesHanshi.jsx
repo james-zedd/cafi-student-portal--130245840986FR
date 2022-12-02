@@ -11,9 +11,12 @@ function ArticlesHanshi() {
 
     async function getArticles() {
         try {
-            const res = await fetch('http://localhost:5500/api/hanshiReply', {
-                credentials: 'include',
-            });
+            const res = await fetch(
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiReply`,
+                {
+                    credentials: 'include',
+                }
+            );
 
             console.log('res', res);
 

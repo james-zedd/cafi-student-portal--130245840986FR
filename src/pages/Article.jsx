@@ -5,6 +5,7 @@ import { UserContext } from '../context/UserContext';
 function Article() {
     const [isLoading, setIsLoading] = useState(false);
     const [article, setArticle] = useState(null);
+    const [isCreateArticle, setIsCreateArticle] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     const { isHanshi } = useContext(UserContext);
@@ -12,7 +13,7 @@ function Article() {
     async function getArticle() {
         try {
             const res = await fetch(
-                `http://localhost:5500/api/hanshiReply/${id}`,
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiReply/${id}`,
                 {
                     credentials: 'include',
                 }
@@ -43,7 +44,7 @@ function Article() {
             };
 
             const res = await fetch(
-                `http://localhost:5500/api/hanshiReply/${id}`,
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiReply/${id}`,
                 options
             );
 
@@ -56,8 +57,13 @@ function Article() {
     }
 
     useEffect(() => {
-        setIsLoading(true);
-        getArticle();
+        if (id === 'create') {
+            setIsCreateArticle(true);
+        }
+        if (!isCreateArticle) {
+            setIsLoading(true);
+            getArticle();
+        }
     }, []);
 
     if (isLoading) {

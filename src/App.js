@@ -169,6 +169,16 @@ function App() {
                                         </ProtectedRoute>
                                     }
                                 />
+                                <Route
+                                    path='create'
+                                    element={
+                                        <ProtectedRoute
+                                            isValid={isValidSession}
+                                        >
+                                            <ArticleForm action={'create'} />
+                                        </ProtectedRoute>
+                                    }
+                                />
                             </Route>
                         )}
                         <Route

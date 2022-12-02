@@ -27,7 +27,7 @@ function AskQuestion() {
             };
 
             const res = await fetch(
-                'http://localhost:5500/api/hanshiAsk',
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiAsk`,
                 options
             );
 

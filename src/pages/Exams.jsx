@@ -11,9 +11,12 @@ function Exams() {
 
     async function getExams() {
         try {
-            const res = await fetch('http://localhost:5500/api/exams', {
-                credentials: 'include',
-            });
+            const res = await fetch(
+                `${process.env.REACT_APP_FETCH_URL}:5500/api/exams`,
+                {
+                    credentials: 'include',
+                }
+            );
 
             const exams = await res.json();
 
