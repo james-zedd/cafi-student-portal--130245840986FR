@@ -23,10 +23,7 @@ function Dashboard() {
                 body: JSON.stringify(input),
             };
 
-            await fetch(
-                `${process.env.REACT_APP_FETCH_URL}:5500/api/news`,
-                options
-            );
+            await fetch(`${process.env.REACT_APP_FETCH_URL}/api/news`, options);
 
             setPostNews('');
             getNewsfeed();
@@ -38,7 +35,7 @@ function Dashboard() {
     async function getNewsfeed() {
         try {
             const res = await fetch(
-                `${process.env.REACT_APP_FETCH_URL}:5500/api/news`,
+                `${process.env.REACT_APP_FETCH_URL}/api/news`,
                 {
                     credentials: 'include',
                 }
