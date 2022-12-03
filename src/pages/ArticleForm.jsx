@@ -16,7 +16,7 @@ function ArticleForm({ action }) {
 
         try {
             const res = await fetch(
-                `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiReply/${id}`,
+                `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply/${id}`,
                 {
                     credentials: 'include',
                 }
@@ -75,13 +75,13 @@ function ArticleForm({ action }) {
         switch (action) {
             case 'create':
                 res = await fetch(
-                    `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiReply/create`,
+                    `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply/create`,
                     options
                 );
                 break;
             default:
                 res = await fetch(
-                    `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiReply`,
+                    `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply`,
                     options
                 );
         }

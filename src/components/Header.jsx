@@ -11,7 +11,7 @@ function Header() {
     async function getHeader() {
         try {
             const res = await fetch(
-                `${process.env.REACT_APP_FETCH_URL}:5500/api/auth/header`,
+                `${process.env.REACT_APP_FETCH_URL}/api/auth/header`,
                 {
                     credentials: 'include',
                 }
@@ -37,12 +37,9 @@ function Header() {
 
     async function handleLogout() {
         try {
-            await fetch(
-                `${process.env.REACT_APP_FETCH_URL}:5500/api/auth/logout`,
-                {
-                    credentials: 'include',
-                }
-            );
+            await fetch(`${process.env.REACT_APP_FETCH_URL}/api/auth/logout`, {
+                credentials: 'include',
+            });
 
             return navigate('/');
         } catch (error) {

@@ -12,7 +12,7 @@ function Exams() {
     async function getExams() {
         try {
             const res = await fetch(
-                `${process.env.REACT_APP_FETCH_URL}:5500/api/exams`,
+                `${process.env.REACT_APP_FETCH_URL}/api/exams`,
                 {
                     credentials: 'include',
                 }

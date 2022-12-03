@@ -12,7 +12,7 @@ function StudentInquiry() {
     async function getInquiry() {
         try {
             const res = await fetch(
-                `${process.env.REACT_APP_FETCH_URL}:5500/api/hanshiAsk/allQuestions/${id}`,
+                `${process.env.REACT_APP_FETCH_URL}/api/hanshiAsk/allQuestions/${id}`,
                 {
                     credentials: 'include',
                 }
