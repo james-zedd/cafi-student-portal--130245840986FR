@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { UserContext } from './context/UserContext';
+import ReactGA from 'react-ga4';
 
 import Header from './components/Header';
 import Login from './pages/Login';
@@ -15,6 +16,10 @@ import ArticleForm from './pages/ArticleForm';
 import Article from './pages/Article';
 import AskQuestion from './pages/AskQuestion';
 import NotFound from './pages/NotFound';
+
+// Start google analytics -- should not be used during development
+ReactGA.initialize(process.env.REACT_APP_GA_ID);
+ReactGA.send('pageview');
 
 const ProtectedRoute = ({ isValid, children }) => {
     if (!isValid) {
