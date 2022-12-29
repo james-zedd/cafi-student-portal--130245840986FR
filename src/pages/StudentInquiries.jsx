@@ -51,7 +51,7 @@ function StudentInquiries() {
                     <div key={question._id} className='basis-1/2 px-4 py-2'>
                         <Link to={`/studentInquiries/${question._id}`}>
                             <div
-                                className='flex flex-col justify-center items-center w-5/6 h-20 mx-auto border border-gray-900 cursor-pointer'
+                                className='flex flex-col justify-center items-center w-5/6 min-h-20 p-2 text-center mx-auto border border-gray-900 cursor-pointer'
                                 onClick={() => handleClickQuestion(question)}
                             >
                                 <p className='text-xl font-bold'>
