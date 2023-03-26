@@ -5,10 +5,6 @@ function Exams() {
     const [exams, setExams] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    function handleClickExam(exam) {
-        console.log('click exam', exam);
-    }
-
     async function getExams() {
         try {
             const res = await fetch(
@@ -45,15 +41,19 @@ function Exams() {
                 {exams.map((exam) => (
                     <div key={exam._id} className='basis-1/2 px-4 py-2'>
                         <Link to={`/exams/${exam._id}`}>
-                            <div
-                                className='flex justify-center items-center w-5/6 h-20 mx-auto border border-gray-900 bg-gray-600 rounded text-white font-bold cursor-pointer'
-                                onClick={() => handleClickExam(exam)}
-                            >
+                            <div className='flex justify-center items-center w-5/6 h-20 mx-auto border border-gray-900 bg-gray-600 rounded text-white font-bold cursor-pointer'>
                                 <p className='text-xl'>{exam.name.rankEng}</p>
                             </div>
                         </Link>
                     </div>
                 ))}
+                <div className='basis-1/2 px-4 py-2 dan-shite-waza'>
+                    <Link to={`/exams/dan-shite-waza`}>
+                        <div className='flex justify-center items-center w-5/6 h-20 mx-auto border border-gray-900 bg-gray-600 rounded text-white font-bold cursor-pointer'>
+                            <p className='text-xl'>Dan Shite Waza</p>
+                        </div>
+                    </Link>
+                </div>
             </div>
         </div>
     );

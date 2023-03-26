@@ -21,3 +21,25 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
+
+table {
+    width: 100%;
+}
+table,
+th,
+td,
+caption {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+td {
+    text-align: center;
+}
+caption {
+    caption-side: bottom;
+    border-top: 0;
+}
+div.dan-shite-waza-legend {
+    display: flex;
+    justify-content: space-evenly;
+}

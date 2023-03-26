@@ -15,6 +15,7 @@ import ArticlesHanshi from './pages/ArticlesHanshi';
 import ArticleForm from './pages/ArticleForm';
 import Article from './pages/Article';
 import AskQuestion from './pages/AskQuestion';
+import DanShiteWaza from './pages/DanShiteWaza';
 import NotFound from './pages/NotFound';
 
 // Start google analytics -- should not be used during development
@@ -104,6 +105,14 @@ function App() {
                                 element={
                                     <ProtectedRoute isValid={isValidSession}>
                                         <Exam />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path='dan-shite-waza'
+                                element={
+                                    <ProtectedRoute isValid={isValidSession}>
+                                        <DanShiteWaza />
                                     </ProtectedRoute>
                                 }
                             />
