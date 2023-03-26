@@ -3,7 +3,9 @@ import React from 'react';
 function DanShiteWaza() {
     return (
         <div>
-            <h1>Dan Shite Waza - Kihon #1 #2</h1>
+            <h1 className='text-3xl font-bold mb-4'>
+                Dan Shite Waza - Kihon #1 #2
+            </h1>
             <section>
                 <table>
                     <caption>Suwari Waza Ryote Mochi Kokyu Ho #1-7</caption>
