@@ -55,7 +55,7 @@ function Header() {
 
     useEffect(() => {
         getHeader();
-    }, []);
+    });
 
     return (
         <div className='relative'>
