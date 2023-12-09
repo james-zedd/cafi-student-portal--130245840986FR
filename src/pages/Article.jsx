@@ -30,7 +30,7 @@ function Article() {
         } catch (error) {
             console.log(error);
         }
-    });
+    }, [id]);
 
     async function handleDeleteArticle() {
         console.log('delete article fired');

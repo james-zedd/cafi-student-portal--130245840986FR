@@ -29,7 +29,7 @@ function StudentInquiry() {
         } catch (error) {
             console.log(error);
         }
-    });
+    }, [id]);
 
     useEffect(() => {
         console.log('use effect ran');
