@@ -131,6 +131,19 @@ function ArticleForm({ action }) {
                     );
                     setDisableSubmitBtn(false);
                 }
+            default:
+                if (json.status === 200) {
+                    toast.success(
+                        'Successfully updated article. Redirecting ...'
+                    );
+                    setTimeout(() => navigate(-1), 7000);
+                } else {
+                    toast.error(
+                        'Something went wrong. Please try again later.'
+                    );
+                    setDisableSubmitBtn(false);
+                }
+                break;
         }
     }
 
@@ -138,7 +151,7 @@ function ArticleForm({ action }) {
         if (action === 'edit') {
             editPost();
         }
-    }, []);
+    });
 
     return (
         <div>

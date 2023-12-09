@@ -31,7 +31,7 @@ function Exam() {
     useEffect(() => {
         console.log('use effect ran');
         getExam();
-    }, []);
+    });
 
     if (isLoading) {
         return <p>Loading ... </p>;
