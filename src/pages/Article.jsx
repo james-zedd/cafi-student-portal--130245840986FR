@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
@@ -10,7 +10,7 @@ function Article() {
     const navigate = useNavigate();
     const { isHanshi } = useContext(UserContext);
 
-    async function getArticle() {
+    const getArticle = useCallback(async () => {
         try {
             const res = await fetch(
                 `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply/${id}`,
@@ -30,7 +30,7 @@ function Article() {
         } catch (error) {
             console.log(error);
         }
-    }
+    });
 
     async function handleDeleteArticle() {
         console.log('delete article fired');
