@@ -64,7 +64,7 @@ function Article() {
             setIsLoading(true);
             getArticle();
         }
-    });
+    }, [id, isCreateArticle, getArticle]);
 
     if (isLoading) {
         <p>Loading ... </p>;

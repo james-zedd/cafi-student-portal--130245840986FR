@@ -131,6 +131,7 @@ function ArticleForm({ action }) {
                     );
                     setDisableSubmitBtn(false);
                 }
+                break;
             default:
                 if (json.status === 200) {
                     toast.success(
