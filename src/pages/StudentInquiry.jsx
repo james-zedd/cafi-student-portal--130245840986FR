@@ -35,7 +35,7 @@ function StudentInquiry() {
         console.log('use effect ran');
         setIsLoading(true);
         getInquiry();
-    });
+    }, [id, getInquiry]);
 
     if (isLoading) {
         <p>Loading ... </p>;
