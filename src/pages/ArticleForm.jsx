@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function ArticleForm({ action }) {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
+    const [disableSubmitBtn, setDisableSubmitBtn] = useState(false);
     const { id } = useParams();
     const inquirerId =
         new URLSearchParams(useLocation().search).get('inquirerId') || null;
@@ -15,7 +16,7 @@ function ArticleForm({ action }) {
 
         try {
             const res = await fetch(
-                `http://localhost:5500/api/hanshiReply/${id}`,
+                `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply/${id}`,
                 {
                     credentials: 'include',
                 }
@@ -36,7 +37,8 @@ function ArticleForm({ action }) {
 
     async function submitForm(e) {
         e.preventDefault();
-        console.log('submit form fired');
+        setDisableSubmitBtn(true);
+        console.log('submit form fired', action);
 
         let method;
         let data = {
@@ -44,9 +46,9 @@ function ArticleForm({ action }) {
             body: body,
         };
 
-        if (action === 'reply') {
+        if (action === 'reply' || action === 'create') {
             method = 'POST';
-            data.questionId = id;
+            data.questionId = id || null;
             data.inquirerId = inquirerId;
         }
 
@@ -68,10 +70,21 @@ function ArticleForm({ action }) {
 
         console.log('options', options);
 
-        const res = await fetch(
-            'http://localhost:5500/api/hanshiReply',
-            options
-        );
+        let res;
+
+        switch (action) {
+            case 'create':
+                res = await fetch(
+                    `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply/create`,
+                    options
+                );
+                break;
+            default:
+                res = await fetch(
+                    `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply`,
+                    options
+                );
+        }
 
         const json = await res.json();
 
@@ -79,14 +92,59 @@ function ArticleForm({ action }) {
             return toast.error('Could not perform requeset. Please try again.');
         }
 
-        if (action === 'reply' && json.status === 201) {
-            toast.success('Successfully replied to question. Redirecting ...');
-            setTimeout(() => navigate('/dashboard'), 7000);
-        }
-
-        if (action === 'edit' && json.status === 200) {
-            toast.success('Successfully updated question. Redirecting ...');
-            setTimeout(() => navigate(-1), 7000);
+        switch (action) {
+            case 'reply':
+                if (json.status === 201) {
+                    toast.success(
+                        'Successfully replied to question. Redirecting ...'
+                    );
+                    setTimeout(() => navigate('/dashboard'), 7000);
+                } else {
+                    toast.error(
+                        'Something went wrong. Please try again later.'
+                    );
+                    setDisableSubmitBtn(false);
+                }
+                break;
+            case 'edit':
+                if (json.status === 200) {
+                    toast.success(
+                        'Successfully updated article. Redirecting ...'
+                    );
+                    setTimeout(() => navigate(-1), 7000);
+                } else {
+                    toast.error(
+                        'Something went wrong. Please try again later.'
+                    );
+                    setDisableSubmitBtn(false);
+                }
+                break;
+            case 'create':
+                if (json.status === 201) {
+                    toast.success(
+                        'Successfully created article. Redirecting ...'
+                    );
+                    setTimeout(() => navigate(-1), 7000);
+                } else {
+                    toast.error(
+                        'Something went wrong. Please try again later.'
+                    );
+                    setDisableSubmitBtn(false);
+                }
+                break;
+            default:
+                if (json.status === 200) {
+                    toast.success(
+                        'Successfully updated article. Redirecting ...'
+                    );
+                    setTimeout(() => navigate(-1), 7000);
+                } else {
+                    toast.error(
+                        'Something went wrong. Please try again later.'
+                    );
+                    setDisableSubmitBtn(false);
+                }
+                break;
         }
     }
 
@@ -94,7 +152,7 @@ function ArticleForm({ action }) {
         if (action === 'edit') {
             editPost();
         }
-    }, []);
+    });
 
     return (
         <div>
@@ -125,6 +183,7 @@ function ArticleForm({ action }) {
                     type='submit'
                     className='mt-8 border border-black rounded px-2 py-1 bg-gray-300'
                     onClick={(e) => submitForm(e)}
+                    disabled={disableSubmitBtn}
                 >
                     Submit
                 </button>

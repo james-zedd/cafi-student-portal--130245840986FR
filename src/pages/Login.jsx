@@ -26,7 +26,10 @@ function Login({ sendValidation }) {
             body: JSON.stringify(data),
         };
 
-        const res = await fetch('http://localhost:5500/api/auth', options);
+        const res = await fetch(
+            `${process.env.REACT_APP_FETCH_URL}/api/auth`,
+            options
+        );
 
         const json = await res.json();
 

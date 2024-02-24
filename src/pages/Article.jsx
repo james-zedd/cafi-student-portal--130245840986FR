@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 function Article() {
     const [isLoading, setIsLoading] = useState(false);
     const [article, setArticle] = useState(null);
+    const [isCreateArticle, setIsCreateArticle] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     const { isHanshi } = useContext(UserContext);
 
-    async function getArticle() {
+    const getArticle = useCallback(async () => {
         try {
             const res = await fetch(
-                `http://localhost:5500/api/hanshiReply/${id}`,
+                `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply/${id}`,
                 {
                     credentials: 'include',
                 }
@@ -29,7 +30,7 @@ function Article() {
         } catch (error) {
             console.log(error);
         }
-    }
+    }, [id]);
 
     async function handleDeleteArticle() {
         console.log('delete article fired');
@@ -43,7 +44,7 @@ function Article() {
             };
 
             const res = await fetch(
-                `http://localhost:5500/api/hanshiReply/${id}`,
+                `${process.env.REACT_APP_FETCH_URL}/api/hanshiReply/${id}`,
                 options
             );
 
@@ -56,9 +57,14 @@ function Article() {
     }
 
     useEffect(() => {
-        setIsLoading(true);
-        getArticle();
-    }, []);
+        if (id === 'create') {
+            setIsCreateArticle(true);
+        }
+        if (!isCreateArticle) {
+            setIsLoading(true);
+            getArticle();
+        }
+    }, [id, isCreateArticle, getArticle]);
 
     if (isLoading) {
         <p>Loading ... </p>;

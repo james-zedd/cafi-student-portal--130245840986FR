@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { UserContext } from './context/UserContext';
+import ReactGA from 'react-ga4';
 
 import Header from './components/Header';
 import Login from './pages/Login';
@@ -14,7 +15,12 @@ import ArticlesHanshi from './pages/ArticlesHanshi';
 import ArticleForm from './pages/ArticleForm';
 import Article from './pages/Article';
 import AskQuestion from './pages/AskQuestion';
+import DanShiteWaza from './pages/DanShiteWaza';
 import NotFound from './pages/NotFound';
+
+// Start google analytics -- should not be used during development
+ReactGA.initialize(process.env.REACT_APP_GA_ID);
+ReactGA.send('pageview');
 
 const ProtectedRoute = ({ isValid, children }) => {
     if (!isValid) {
@@ -102,6 +108,14 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             />
+                            <Route
+                                path='dan-shite-waza'
+                                element={
+                                    <ProtectedRoute isValid={isValidSession}>
+                                        <DanShiteWaza />
+                                    </ProtectedRoute>
+                                }
+                            />
                         </Route>
                         <Route path='/studentInquiries'>
                             <Route
@@ -166,6 +180,16 @@ function App() {
                                             isValid={isValidSession}
                                         >
                                             <ArticleForm action={'edit'} />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                                <Route
+                                    path='create'
+                                    element={
+                                        <ProtectedRoute
+                                            isValid={isValidSession}
+                                        >
+                                            <ArticleForm action={'create'} />
                                         </ProtectedRoute>
                                     }
                                 />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
@@ -9,10 +9,10 @@ function StudentInquiry() {
     const navigate = useNavigate();
     const { isHanshi } = useContext(UserContext);
 
-    async function getInquiry() {
+    const getInquiry = useCallback(async () => {
         try {
             const res = await fetch(
-                `http://localhost:5500/api/hanshiAsk/allQuestions/${id}`,
+                `${process.env.REACT_APP_FETCH_URL}/api/hanshiAsk/allQuestions/${id}`,
                 {
                     credentials: 'include',
                 }
@@ -29,13 +29,13 @@ function StudentInquiry() {
         } catch (error) {
             console.log(error);
         }
-    }
+    }, [id]);
 
     useEffect(() => {
         console.log('use effect ran');
         setIsLoading(true);
         getInquiry();
-    }, []);
+    }, [id, getInquiry]);
 
     if (isLoading) {
         <p>Loading ... </p>;
